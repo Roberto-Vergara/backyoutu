@@ -50,9 +50,9 @@ class UserController {
     }
 
     async login(req: any, res: Response) {
-        const { id, name, lastname } = req.user;
+        const { id, name, email } = req.user;
         const payload = {
-            id, name, lastname
+            id, name, email
         }
         const at: any = process.env.ACCESS_TOKEN
         const accessToken = jwt.sign(payload, at)

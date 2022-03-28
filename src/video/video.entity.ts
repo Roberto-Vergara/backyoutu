@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity("video")
-export class Video {
+export class Video extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -18,4 +18,10 @@ export class Video {
 
     @Column()
     creator_id: string;
+
+    @Column()
+    likes: number;
+
+    @Column()
+    dislikes: number;
 }

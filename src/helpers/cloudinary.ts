@@ -12,7 +12,7 @@ export const upload = async (path: string) => {
         if (!res) {
             throw { message: "something goes bad" }
         }
-        return { message: "image uploaded" }
+        return res;
     } catch (error) {
         return { error, message: "algo salio mal" }
     }

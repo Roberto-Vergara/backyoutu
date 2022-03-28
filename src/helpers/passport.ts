@@ -1,4 +1,3 @@
-import * as passport from "passport"
 import { Strategy } from "passport-local"
 import { User } from "../user/user.entity"
 import bcrypt from "bcrypt"
@@ -27,5 +26,25 @@ const verify = async (email: string, password: string, cb: any) => {
 
 const strategy: any = new Strategy({ usernameField: "email" }, verify)
 
+const serialize = (user: any, cb: any) => {
+    cb(null, user.id)
+}
 
-export { strategy }
+const deserialize = async (id: any, cb: any) => {
+    try {
+        const user = await User.findOne(id);
+        if (!user) {
+            return cb({ msg: "algun error" })
+        }
+        const uData = {
+            id: user.id,
+            name: user.name,
+            lastname: user.lastname
+        }
+        cb(null, uData)
+    } catch (error) {
+        cb(error)
+    }
+}
+
+export { strategy, serialize, deserialize }
