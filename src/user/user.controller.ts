@@ -16,26 +16,14 @@ class UserController {
                 throw { ok: false, message: "some error" }
             }
             await createU.save()
-        } catch (error) {
+            return res.json({ ok: true, message: "usuario creado", status: 201 })
+        } catch (error: any) {
+            if (!error.ok) {
+                return res.status(error.status).json(error)
+            }
             return res.json({ error, message: "some error" })
         }
 
-    }
-
-    async becomeUplo(req: Request, res: Response) {
-        const id: string = "";
-        const { accept } = req.body;
-        try {
-            if (accept === "yes") {
-                const user: any = await User.findOne({ where: { id } })
-                user.uploader = true;
-                await user;
-                return res.json({ ok: true, message: "usuario actualizado" })
-            }
-            return res.json(null)
-        } catch (error) {
-            return res.json({ error, message: "someerror" })
-        }
     }
 
     async getUser(req: Request, res: Response) {

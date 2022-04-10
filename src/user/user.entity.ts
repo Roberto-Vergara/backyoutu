@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { Creator } from "../creator/creator.entity";
+import { Like } from "../like/like.entity";
 
 
 @Entity("user")
@@ -19,9 +21,12 @@ export class User extends BaseEntity {
     @Column()
     password: string;
 
-    @Column({ default: false })
-    uploader: boolean;
+    @CreateDateColumn()
+    created_at: Date;
 
-    @Column({ type: "simple-array", default: [] })
-    videos: string[];
+    @OneToOne(() => Creator, creator => creator.user)
+    creator: Creator;
+
+    @OneToMany(() => Like, like => like.user)
+    like: Like;
 }

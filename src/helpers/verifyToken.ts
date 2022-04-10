@@ -15,7 +15,7 @@ const verifyToken = async (req: any, res: Response, next: NextFunction) => {
         const user = await User.findOne(result.id);
         if (!user) throw { error: "el token esta mal" }
         if (user.email !== result.email) throw { error: "el token esta mal" };
-        req.user = result;
+        req.userT = result;
         return next()
     } catch (error) {
         return res.json({ ok: false, message: "algo salio mal", error })

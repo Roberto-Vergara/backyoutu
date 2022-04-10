@@ -1,7 +1,9 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "../user/user.entity";
+import { Video } from "../video/video.entity";
 
 
-@Entity("like")
+@Entity("like_video")
 export class Like extends BaseEntity {
 
     @PrimaryGeneratedColumn()
@@ -10,6 +12,11 @@ export class Like extends BaseEntity {
     @Column()
     like: boolean; //si es true es like, si es false es dislike
 
-    // relation con videoId(al video que le dio like)
-    // relacion con userId(el que dio like)
+
+    @ManyToOne(() => User, user => user.like)
+    @JoinTable({ name: "user_id" })
+    user: User;
+
+    @ManyToOne(() => Video, video => video.like)
+    video: Video;
 }

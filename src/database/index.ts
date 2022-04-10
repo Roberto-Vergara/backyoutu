@@ -11,11 +11,11 @@ export const connection = async () => {
             type: "mysql",
             host: process.env.HOST,
             port: 3306,
-            username: process.env.USER_NAME,
-            password: process.env.PASSWORD,
-            database: process.env.DATABASE,
+            username: "root",
+            password: "password",
+            database: "youtu",
             entities: [User, Like, Video, Creator],
-            synchronize: false
+            synchronize: true
         })
         console.log("conexion exitosa a la base de datos");
 
